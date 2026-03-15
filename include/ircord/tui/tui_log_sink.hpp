@@ -28,9 +28,10 @@ protected:
         std::strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%SZ", std::gmtime(&time_t));
         entry.ts = buf;
 
-        nlohmann::json j = entry;
-        j["type"] = "log";
-        listener_->send_event(j);
+        listener_->send_event({
+            {"type", "log"},
+            {"data", entry}
+        });
     }
 
     void flush_() override {}

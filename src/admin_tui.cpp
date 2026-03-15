@@ -173,6 +173,7 @@ int AdminTui::run() {
 void AdminTui::on_event(const nlohmann::json& event) {
     try {
         std::string type = event.value("type", "");
+        if (!event.contains("data")) return;  // skip command responses etc.
         const auto& data = event["data"];
 
         if (type == "log") {
